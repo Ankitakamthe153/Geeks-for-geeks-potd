@@ -1,0 +1,22 @@
+public ArrayList<Integer> diagView(int[][] mat) {
+    
+    int n = mat.length;
+    Map<Integer, List<Integer>> mp = new TreeMap<>();
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < mat[i].length; j++) {
+            mp.putIfAbsent(i + j, new ArrayList<>());
+            mp.get(i + j).add(mat[i][j]);
+        }
+    }
+
+    ArrayList<Integer> ans = new ArrayList<>();
+
+    for (Map.Entry<Integer, List<Integer>> entry : mp.entrySet()) {
+        for (int val : entry.getValue()) {
+            ans.add(val);
+        }
+    }
+
+    return ans;
+}
