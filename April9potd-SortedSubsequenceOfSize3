@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public ArrayList<Integer> find3Numbers(int[] arr) {
+        int n = arr.length;
+        if (n < 3) return new ArrayList<>();
+
+        int first = Integer.MAX_VALUE;
+        int second = Integer.MAX_VALUE;
+        int potential_first = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] <= potential_first) {
+                potential_first = arr[i];
+            } 
+            else if (arr[i] <= second) {
+                first = potential_first;
+                second = arr[i];
+            } 
+            else {
+                ArrayList<Integer> result = new ArrayList<>();
+                result.add(first);
+                result.add(second);
+                result.add(arr[i]);
+                return result;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+}
