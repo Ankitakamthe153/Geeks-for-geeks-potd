@@ -1,0 +1,73 @@
+class Solution {
+
+    public boolean all9s(int[] num) {
+        for (int d : num) {
+            if (d != 9) return false;
+        }
+        return true;
+    }
+
+    public int[] nextPalindrome(int[] num) {
+        int n = num.length;
+
+        // Case: all digits are 9
+        if (all9s(num)) {
+            int[] ans = new int[n + 1];
+            ans[0] = 1;
+            ans[n] = 1;
+            return ans;
+        }
+
+        int[] ans = num.clone();
+
+        int mid = n / 2;
+        int i = mid - 1;
+        int j = (n % 2 == 1) ? mid + 1 : mid;
+
+        boolean leftSmaller = false;
+
+        // Check if left side is smaller
+        while (i >= 0 && ans[i] == ans[j]) {
+            i--;
+            j++;
+        }
+
+        if (i < 0 || ans[i] < ans[j]) {
+            leftSmaller = true;
+        }
+
+        // Mirror left to right
+        while (i >= 0) {
+            ans[j] = ans[i];
+            i--;
+            j++;
+        }
+
+        // Handle carry if needed
+        if (leftSmaller) {
+            int carry = 1;
+            i = mid - 1;
+
+            if (n % 2 == 1) {
+                ans[mid] += carry;
+                carry = ans[mid] / 10;
+                ans[mid] %= 10;
+                j = mid + 1;
+            } else {
+                j = mid;
+            }
+
+            while (i >= 0) {
+                ans[i] += carry;
+                carry = ans[i] / 10;
+                ans[i] %= 10;
+
+                ans[j] = ans[i];
+                i--;
+                j++;
+            }
+        }
+
+        return ans;
+    }
+}
