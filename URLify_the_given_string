@@ -1,0 +1,5 @@
+class Solution {
+    public String urlify(String s) {
+        return s.replace(" ", "%20");
+    }
+}
